@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { FaBars, FaTimes, FaCamera } from "react-icons/fa";
+import { FaBars, FaTimes, FaCamera, FaTasks } from "react-icons/fa";
 import { useAuthContext } from "../../config/AuthContext";
 import ImageCropModal from '../ImageCropModal';
 
@@ -51,9 +51,14 @@ const Navbar = () => {
                 {/* Logo */}
                 <div
                     onClick={() => handleNavigate("/")}
-                    className="text-xl font-bold bg-gradient-to-r from-purple-600 via-blue-600 to-pink-500 bg-clip-text text-transparent cursor-pointer"
+                    className="flex items-center gap-2 cursor-pointer group"
                 >
-                    TodoPro 🚀
+                    <div className="flex items-center justify-center bg-linear-to-br from-purple-600 to-pink-500 p-1.5 rounded-lg text-white shadow-sm group-hover:shadow-md group-hover:scale-105 transition-all duration-300">
+                        <FaTasks size={18} />
+                    </div>
+                    <div className="text-xl font-bold bg-linear-to-r from-purple-600 via-blue-600 to-pink-500 bg-clip-text text-transparent">
+                        Taskify
+                    </div>
                 </div>
 
                 {/* Desktop Menu */}
@@ -79,7 +84,7 @@ const Navbar = () => {
                     ) : (
                         <div className="flex items-center gap-3">
                             <input type="file" accept="image/*" ref={fileInputRef} className="hidden" onChange={onFileSelect} />
-                            <div 
+                            <div
                                 onClick={() => fileInputRef.current.click()}
                                 title="Change Profile Picture"
                                 className="relative group flex items-center justify-center w-9 h-9 rounded-full bg-linear-to-br from-purple-500 to-pink-500 text-white font-bold text-sm shadow-md overflow-hidden cursor-pointer"
@@ -140,7 +145,7 @@ const Navbar = () => {
                     ) : (
                         <div className="flex flex-col gap-3">
                             <div className="flex items-center gap-3 py-2 px-1">
-                                <div 
+                                <div
                                     onClick={() => fileInputRef.current.click()}
                                     title="Change Profile Picture"
                                     className="relative group flex items-center justify-center w-10 h-10 rounded-full bg-linear-to-br from-purple-500 to-pink-500 text-white font-bold text-lg shadow-md overflow-hidden cursor-pointer"
@@ -172,7 +177,7 @@ const Navbar = () => {
             )}
 
             {cropModalOpen && selectedImageSrc && (
-                <ImageCropModal 
+                <ImageCropModal
                     imageSrc={selectedImageSrc}
                     onCropComplete={handleCropComplete}
                     onCancel={handleCropCancel}

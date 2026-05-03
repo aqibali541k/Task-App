@@ -6,7 +6,7 @@ const Footer = () => {
         <footer className="w-full bg-gray-900 border-t border-gray-800 pt-12 pb-6 mt-16 text-gray-300">
             <div className="max-w-6xl mx-auto px-4 sm:px-6">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    
+
                     {/* Brand Section */}
                     <div>
                         <h2 className="text-2xl font-bold bg-linear-to-r from-purple-500 via-blue-500 to-pink-500 bg-clip-text text-transparent flex items-center gap-2">
@@ -32,13 +32,13 @@ const Footer = () => {
                         <h4 className="font-semibold text-white mb-4 tracking-wide text-sm uppercase">Connect With Us</h4>
                         <div className="flex gap-4">
                             <a href="#" className="w-9 h-9 rounded-full bg-gray-800 flex items-center justify-center hover:bg-linear-to-br hover:from-purple-500 hover:to-pink-500 hover:text-white transition-all transform hover:-translate-y-1 duration-300 shadow-lg cursor-pointer">
-                                <FaTwitter size={15}/>
+                                <FaTwitter size={15} />
                             </a>
-                            <a href="#" className="w-9 h-9 rounded-full bg-gray-800 flex items-center justify-center hover:bg-linear-to-br hover:from-gray-700 hover:to-black hover:text-white transition-all transform hover:-translate-y-1 duration-300 shadow-lg cursor-pointer">
-                                <FaGithub size={16}/>
+                            <a href="https://github.com/aqibali541k" className="w-9 h-9 rounded-full bg-gray-800 flex items-center justify-center hover:bg-linear-to-br hover:from-gray-700 hover:to-black hover:text-white transition-all transform hover:-translate-y-1 duration-300 shadow-lg cursor-pointer">
+                                <FaGithub size={16} />
                             </a>
                             <a href="#" className="w-9 h-9 rounded-full bg-gray-800 flex items-center justify-center hover:bg-linear-to-br hover:from-blue-600 hover:to-blue-800 hover:text-white transition-all transform hover:-translate-y-1 duration-300 shadow-lg cursor-pointer">
-                                <FaLinkedin size={15}/>
+                                <FaLinkedin size={15} />
                             </a>
                         </div>
                     </div>

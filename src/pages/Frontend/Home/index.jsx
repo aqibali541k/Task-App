@@ -23,7 +23,7 @@ const Home = () => {
             return;
         }
         try {
-            const res = await axios.post("http://localhost:8000/todo/create", task)
+            const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL || "http://localhost:8000"}/todo/create`, task)
             console.log(res.data);
             fetchTask();
             message.success("Task created successfully")
@@ -36,7 +36,7 @@ const Home = () => {
     }
     const fetchTask = async () => {
         try {
-            const res = await axios.get("http://localhost:8000/todo/read")
+            const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL || "http://localhost:8000"}/todo/read`)
             setTasks(res.data.todos)
         }
         catch (error) {

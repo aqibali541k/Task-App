@@ -12,7 +12,7 @@ const Tabs = ({ tasks, setTasks }) => {
     }
     const handleDelete = async (_id) => {
         try {
-            const res = await axios.delete(`http://localhost:8000/todo/delete/${_id}`)
+            const res = await axios.delete(`${import.meta.env.VITE_BACKEND_URL || "http://localhost:8000"}/todo/delete/${_id}`)
             message.success("Task deleted successfully")
         }
         catch (error) {

@@ -18,7 +18,7 @@ export const AuthProvider = ({ children }) => {
             const formData = new FormData();
             formData.append("profilePic", file);
 
-            const res = await axios.put("http://localhost:8000/auth/update-profile-pic", formData);
+            const res = await axios.put(`${import.meta.env.VITE_BACKEND_URL || "http://localhost:8000"}/auth/update-profile-pic`, formData);
 
             const updatedUser = { ...user, profilePic: res.data.profilePic };
             setUser(updatedUser);
@@ -40,7 +40,7 @@ export const AuthProvider = ({ children }) => {
             setLoading(true);
 
             const res = await axios.post(
-                "http://localhost:8000/auth/register",
+                `${import.meta.env.VITE_BACKEND_URL || "http://localhost:8000"}/auth/register`,
                 userData
             );
 
@@ -73,7 +73,7 @@ export const AuthProvider = ({ children }) => {
             setLoading(true);
 
             const res = await axios.post(
-                "http://localhost:8000/auth/login",
+                `${import.meta.env.VITE_BACKEND_URL || "http://localhost:8000"}/auth/login`,
                 userData
             );
 
@@ -108,7 +108,7 @@ export const AuthProvider = ({ children }) => {
     const handleForgotPassword = async (email) => {
         try {
             setLoading(true);
-            const res = await axios.post("http://localhost:8000/auth/forgot-password", { email });
+            const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL || "http://localhost:8000"}/auth/forgot-password`, { email });
             setLoading(false);
             return res.data;
         } catch (error) {
@@ -122,7 +122,7 @@ export const AuthProvider = ({ children }) => {
     const handleResetPassword = async (token, password) => {
         try {
             setLoading(true);
-            const res = await axios.put(`http://localhost:8000/auth/reset-password/${token}`, { password });
+            const res = await axios.put(`${import.meta.env.VITE_BACKEND_URL || "http://localhost:8000"}/auth/reset-password/${token}`, { password });
             setLoading(false);
             return res.data;
         } catch (error) {
