@@ -70,7 +70,7 @@ const Register = () => {
     return (
         <div className="min-h-screen flex items-center justify-center bg-gray-50 p-4 sm:p-6 lg:p-8">
             <div className="flex flex-col-reverse lg:flex-row w-full max-w-6xl bg-white rounded-3xl shadow-2xl overflow-hidden min-h-[600px] border border-gray-100">
-                
+
                 {/* Form Section */}
                 <div className="w-full lg:w-1/2 flex items-center justify-center p-8 sm:p-12 lg:p-16 relative">
                     <div className="w-full max-w-md">
@@ -86,7 +86,7 @@ const Register = () => {
 
                         {/* Form */}
                         <form onSubmit={handleSubmit} className="space-y-4">
-                            
+
                             {/* Name */}
                             <div>
                                 <label className="text-sm font-semibold text-gray-700 block mb-1.5">
@@ -192,7 +192,7 @@ const Register = () => {
             </div>
 
             {cropModalOpen && selectedImageSrc && (
-                <ImageCropModal 
+                <ImageCropModal
                     imageSrc={selectedImageSrc}
                     onCropComplete={handleCropComplete}
                     onCancel={handleCropCancel}

@@ -3,14 +3,32 @@ import React, { useEffect, useState } from "react";
 import { FaEdit, FaFilter, FaTasks, FaTrash } from "react-icons/fa";
 import { CheckOutlined } from "@ant-design/icons"
 import axios from "axios";
+import { useAuthContext } from "../../../config/AuthContext";
 
 const Tabs = ({ tasks, setTasks }) => {
+    const { isAuth } = useAuthContext();
     const [activeTab, setActiveTab] = useState("all");
 
     const handleCompleted = async (_id) => {
+        if (!isAuth) {
+            const guestTasks = JSON.parse(localStorage.getItem("guestTasks")) || [];
+            const updatedTasks = guestTasks.map(task => task._id === _id ? { ...task, completed: !task.completed } : task);
+            localStorage.setItem("guestTasks", JSON.stringify(updatedTasks));
+            setTasks(updatedTasks);
+            return;
+        }
         setTasks(prevTasks => prevTasks.map(task => task._id === _id ? { ...task, completed: !task.completed } : task))
     }
     const handleDelete = async (_id) => {
+        if (!isAuth) {
+            const guestTasks = JSON.parse(localStorage.getItem("guestTasks")) || [];
+            const updatedTasks = guestTasks.filter(task => task._id !== _id);
+            localStorage.setItem("guestTasks", JSON.stringify(updatedTasks));
+            setTasks(updatedTasks);
+            message.success("Task deleted successfully (Guest)");
+            return;
+        }
+
         try {
             const res = await axios.delete(`${import.meta.env.VITE_BACKEND_URL || "http://localhost:8000"}/todo/delete/${_id}`)
             message.success("Task deleted successfully")

@@ -3,11 +3,14 @@ import { FaFilter, FaPlus } from 'react-icons/fa'
 import Tabs from './Tabs'
 import { message } from 'antd'
 import axios from 'axios'
+import { useAuthContext } from '../../../config/AuthContext'
+
 let initialState = {
     task: "",
     priority: "medium"
 }
 const Home = () => {
+    const { isAuth } = useAuthContext();
     const [currentProgress, setCurrentProgress] = useState(0)
     const [task, setTask] = useState(initialState)
     const [tasks, setTasks] = useState([])
@@ -22,10 +25,27 @@ const Home = () => {
             message.error("Please enter a task")
             return;
         }
+        task.task = task.task.trim();
+        if (task.task.length < 3) {
+            message.error("Task must be at least 3 characters long")
+            return;
+        }
+
+        if (!isAuth) {
+            const guestTasks = JSON.parse(localStorage.getItem("guestTasks")) || [];
+            const newTask = { ...task, _id: Date.now().toString(), completed: false };
+            const updatedTasks = [newTask, ...guestTasks];
+            localStorage.setItem("guestTasks", JSON.stringify(updatedTasks));
+            setTasks(updatedTasks);
+            message.success("Task created successfully (Guest)");
+            setTask(initialState);
+            return;
+        }
+
         try {
             const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL || "http://localhost:8000"}/todo/create`, task)
             console.log(res.data);
-            fetchTask();
+            setTasks(prevTasks => [res.data.todo, ...prevTasks]);
             message.success("Task created successfully")
         }
         catch (error) {
@@ -35,6 +55,12 @@ const Home = () => {
         setTask(initialState);
     }
     const fetchTask = async () => {
+        if (!isAuth) {
+            const guestTasks = JSON.parse(localStorage.getItem("guestTasks")) || [];
+            setTasks(guestTasks);
+            return;
+        }
+
         try {
             const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL || "http://localhost:8000"}/todo/read`)
             setTasks(res.data.todos)
@@ -56,7 +82,7 @@ const Home = () => {
     }, [tasks])
     useEffect(() => {
         fetchTask()
-    }, [])
+    }, [isAuth])
     return (
         <div className='max-w-5xl mx-auto px-4 sm:px-6 md:px-10 lg:px-20'>
             <h1 className='text-2xl sm:text-3xl md:text-4xl lg:text-5xl mt-12 font-bold text-center bg-linear-to-r from-purple-600 via-blue-600 to-pink-500 bg-clip-text text-transparent'>
